@@ -112,8 +112,8 @@ const StyledDetailContainer = styled.div`
     .img {
       width: 100%;
       height: ${getHeightPixel(200)};
-
       border: 1px solid #e3e3e3;
+      border-radius: 15px;
     }
 
     .name {

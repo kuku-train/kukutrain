@@ -51,6 +51,7 @@ export function BottomHeader({
       }
     };
   }, [isToggle]);
+
   return (
     <ContainerStyled>
       {selected !== -1 ? (

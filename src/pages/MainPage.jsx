@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import BottomContainer from '../components/Container/BottomContainer';
+import BottomContainer2 from '../components/Container/BottomContainer2';
 import MapContainer from '../components/Container/MapContainer';
 import { getHeightPixel, getPixelToNumber, getWidthPixel } from '../utils/responsive';
 import { HEIGHT } from '../utils/responsive';
@@ -53,9 +54,9 @@ function MainPage() {
         </>
       )}
 
-      <BottomContainer
-        locY={locY}
-        setLocY={setLocY}
+      <BottomContainer2
+        // locY={locY}
+        // setLocY={setLocY}
         selected={selected}
         setSelected={setSelected}
         alcoholIdx={alcoholIdx}
