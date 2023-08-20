@@ -20,8 +20,6 @@ import BottomSubContainer from '../Container/BottomSubContainer';
 import BackHeader from './BackHeader';
 
 export function BottomHeader({
-  locY,
-  setLocY,
   setSelected,
   selected,
   selectedIdx,
@@ -62,21 +60,11 @@ export function BottomHeader({
           onTouchEnd={e => {
             setScroll(false);
           }}
-          onTouchMove={e => {
-            if (isScroll) {
-              setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-            }
-          }}
           onMouseDown={() => {
             setScroll(true);
           }}
           onMouseUp={() => {
             setScroll(false);
-          }}
-          onMouseMove={e => {
-            if (isScroll) {
-              setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-            }
           }}
         >
           <BackHeader selected={selected} setSelected={setSelected} />
@@ -103,55 +91,47 @@ export function BottomHeader({
             onTouchEnd={e => {
               setScroll(false);
             }}
-            onTouchMove={e => {
-              if (isScroll) {
-                setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
             onMouseDown={() => {
               setScroll(true);
             }}
             onMouseUp={() => {
               setScroll(false);
             }}
-            onMouseMove={e => {
-              if (isScroll) {
-                setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
           >
             <HeaderBox>
               <BottomHeaderElement />
             </HeaderBox>
-            <RowContainerStyled>
-              <MarginStyled>
-                <Button text={'화장실'} idx={0} isSelected={selectedIdx === 0} onClick={() => setIdx(0)}>
-                  {selectedIdx === 0 ? <ToiletCrimsonIconStyled /> : <ToiletGrayIconStyled />}
-                </Button>
-              </MarginStyled>
-              <MarginStyled marginLeft={getWidthPixel(152)}>
-                <Button text={'응원단'} idx={2} isSelected={selectedIdx === 2} onClick={() => setIdx(2)}>
-                  {selectedIdx === 2 ? <CheerCrimsonIconStyled /> : <CheerGrayIconStyled />}
-                </Button>
-              </MarginStyled>
-            </RowContainerStyled>
-            <CenterButtonStyled onClick={() => setToggle(!isToggle)}>
-              {flag ? (
-                <CenterButtonIconStyled isVisible={isToggle}>
-                  <SpoonIconStyled isVisible={isToggle} />
-                  <ChopStickLeftIconStyled isVisible={isToggle} />
-                  <ChopStickRightIconStyled isVisible={isToggle} />
-                </CenterButtonIconStyled>
-              ) : (
-                <ListButtonIconStyled isVisible={isToggle}>
-                  <ListLineStyledLeft isVisible={isToggle} />
-                  <Blank height={getWidthPixel(6)} />
-                  <ListLineStyledMiddle isVisible={isToggle} />
-                  <Blank height={getWidthPixel(6)} />
-                  <ListLineStyledRight isVisible={isToggle} />
-                </ListButtonIconStyled>
-              )}
-            </CenterButtonStyled>
+            <RowContainer>
+              <RowContainerStyled>
+                <MarginStyled>
+                  <Button text={'화장실'} idx={0} isSelected={selectedIdx === 0} onClick={() => setIdx(0)}>
+                    {selectedIdx === 0 ? <ToiletCrimsonIconStyled /> : <ToiletGrayIconStyled />}
+                  </Button>
+                </MarginStyled>
+                <MarginStyled marginLeft={getWidthPixel(152)}>
+                  <Button text={'응원단'} idx={2} isSelected={selectedIdx === 2} onClick={() => setIdx(2)}>
+                    {selectedIdx === 2 ? <CheerCrimsonIconStyled /> : <CheerGrayIconStyled />}
+                  </Button>
+                </MarginStyled>
+              </RowContainerStyled>
+              <CenterButtonStyled onClick={() => setToggle(!isToggle)}>
+                {flag ? (
+                  <CenterButtonIconStyled isVisible={isToggle}>
+                    <SpoonIconStyled isVisible={isToggle} />
+                    <ChopStickLeftIconStyled isVisible={isToggle} />
+                    <ChopStickRightIconStyled isVisible={isToggle} />
+                  </CenterButtonIconStyled>
+                ) : (
+                  <ListButtonIconStyled isVisible={isToggle}>
+                    <ListLineStyledLeft isVisible={isToggle} />
+                    <Blank height={getWidthPixel(6)} />
+                    <ListLineStyledMiddle isVisible={isToggle} />
+                    <Blank height={getWidthPixel(6)} />
+                    <ListLineStyledRight isVisible={isToggle} />
+                  </ListButtonIconStyled>
+                )}
+              </CenterButtonStyled>
+            </RowContainer>
           </div>
         </div>
       ) : (
@@ -164,21 +144,11 @@ export function BottomHeader({
             onTouchEnd={e => {
               setScroll(false);
             }}
-            onTouchMove={e => {
-              if (isScroll) {
-                setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
             onMouseDown={() => {
               setScroll(true);
             }}
             onMouseUp={() => {
               setScroll(false);
-            }}
-            onMouseMove={e => {
-              if (isScroll) {
-                setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
             }}
           >
             <Blank width={getWidthPixel(30)} />
@@ -206,6 +176,15 @@ const ContainerStyled = styled.div`
   height: ${getHeightPixel(86)};
   filter: drop-shadow(0px -10px 10px #0000001a);
   background-color: #ffffff00;
+`;
+
+const RowContainer = styled.div`
+  width: ${getWidthPixel(428)};
+  height: ${getHeightPixel(86)};
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  justify-content: center;
 `;
 
 const RowContainerStyled = styled.div`
@@ -265,6 +244,7 @@ const CenterButtonIconStyled = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
   justify-content: center;
   ${({ isVisible }) => css`
     animation: ${isVisible ? null : scaleDown} 0.5s ease-in-out;
@@ -291,7 +271,6 @@ const ListButtonIconStyled = styled.div`
 
 const CenterButtonStyled = styled.button`
   position: absolute;
-  margin-left: ${getWidthPixel(183)};
   margin-top: -${getWidthPixel(5)};
   background-color: ${palette.none};
   border: 0px;

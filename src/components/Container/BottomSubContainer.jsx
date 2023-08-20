@@ -9,7 +9,6 @@ import Blank from '../Blank';
 
 export default function BottomSubContainer({ type, idxList, setIdx, setType, isToggle }) {
   const [isVisible, setVisible] = useState(false);
-  console.log(type);
   return (
     <ContainerStyled isVisible={isToggle}>
       <InnerContainerStyled>

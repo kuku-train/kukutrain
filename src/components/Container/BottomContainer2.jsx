@@ -11,8 +11,6 @@ import { WIDTH } from '../../utils/responsive';
 import { useOverlay, useModal, OverlayProvider, FocusScope, useButton, useDialog } from 'react-aria';
 
 export default function BottomContainer2({
-  // locY,
-  // setLocY,
   selected,
   setSelected,
   alcoholIdx,
@@ -31,20 +29,22 @@ export default function BottomContainer2({
   return (
     <div>
       {!sheetState.isOpen && (
-        <HeaderButtonStyled {...openButton.buttonProps} ref={openButtonRef}>
-          <BottomHeader
-            selected={selected}
-            setSelected={setSelected}
-            selectedIdx={selectedIdx}
-            setIdx={setIdx}
-            alcoholIdx={alcoholIdx}
-            setAlcoholIdx={setAlcoholIdx}
-            foodIdx={foodIdx}
-            setFoodIdx={setFoodIdx}
-            noiseIdx={noiseIdx}
-            setNoiseIdx={setNoiseIdx}
-          />
-        </HeaderButtonStyled>
+        <div>
+          <HeaderButtonStyled {...openButton.buttonProps} ref={openButtonRef}>
+            <BottomHeader
+              selected={selected}
+              setSelected={setSelected}
+              selectedIdx={selectedIdx}
+              setIdx={setIdx}
+              alcoholIdx={alcoholIdx}
+              setAlcoholIdx={setAlcoholIdx}
+              foodIdx={foodIdx}
+              setFoodIdx={setFoodIdx}
+              noiseIdx={noiseIdx}
+              setNoiseIdx={setNoiseIdx}
+            />
+          </HeaderButtonStyled>
+        </div>
       )}
 
       <CustomSheet isOpen={sheetState.isOpen} onClose={sheetState.close}>
@@ -52,8 +52,6 @@ export default function BottomContainer2({
           <FocusScope contain autoFocus restoreFocus>
             <SheetComp
               sheetState={sheetState}
-              // setLocY={setLocY}
-              // locY={locY}
               selected={selected}
               setSelected={setSelected}
               selectedIdx={selectedIdx}
@@ -96,8 +94,6 @@ const SheetComp = ({
       <Sheet.Container {...overlay.overlayProps} {...dialog.dialogProps} ref={containerRef}>
         <Sheet.Header>
           <BottomHeader
-            // setLocY={setLocY}
-            // locY={locY}
             selected={selected}
             setSelected={setSelected}
             selectedIdx={selectedIdx}
@@ -112,7 +108,6 @@ const SheetComp = ({
         </Sheet.Header>
         <Sheet.Content>
           <BodyContainer
-            // locY={locY}
             alcoholIdx={alcoholIdx}
             foodIdx={foodIdx}
             noiseIdx={noiseIdx}
