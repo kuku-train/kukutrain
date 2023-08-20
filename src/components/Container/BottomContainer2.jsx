@@ -26,12 +26,27 @@ export default function BottomContainer2({
 }) {
   const sheetState = useOverlayTriggerState({});
   const openButtonRef = useRef(null);
+
   const openButton = useButton({ onPress: sheetState.open }, openButtonRef);
   return (
     <div>
-      <HeaderButton {...openButton.buttonProps} ref={openButtonRef}>
-        Open sheet
-      </HeaderButton>
+      {!sheetState.isOpen && (
+        <HeaderButtonStyled {...openButton.buttonProps} ref={openButtonRef}>
+          <BottomHeader
+            selected={selected}
+            setSelected={setSelected}
+            selectedIdx={selectedIdx}
+            setIdx={setIdx}
+            alcoholIdx={alcoholIdx}
+            setAlcoholIdx={setAlcoholIdx}
+            foodIdx={foodIdx}
+            setFoodIdx={setFoodIdx}
+            noiseIdx={noiseIdx}
+            setNoiseIdx={setNoiseIdx}
+          />
+        </HeaderButtonStyled>
+      )}
+
       <CustomSheet isOpen={sheetState.isOpen} onClose={sheetState.close}>
         <OverlayProvider>
           <FocusScope contain autoFocus restoreFocus>
@@ -74,18 +89,7 @@ const SheetComp = ({
   const dialog = useDialog({}, containerRef);
   const overlay = useOverlay({ onClose: sheetState.close, isOpen: true, isDismissable: true }, containerRef);
 
-  const closeButtonRef = useRef(null);
-  const closeButton = useButton({ onPress: sheetState.close, 'aria-label': 'Close sheet' }, closeButtonRef);
-
   useModal();
-
-  // In real world usage this would be a separate React component
-  const customHeader = (
-    <div>
-      <span {...dialog.titleProps}>Some title for sheet</span>
-      <button {...closeButton.buttonProps}>🅧</button>
-    </div>
-  );
 
   return (
     <div>
@@ -123,12 +127,12 @@ const SheetComp = ({
   );
 };
 
-const HeaderButton = styled.button`
+const HeaderButtonStyled = styled.button`
+  display: flex;
   position: absolute;
-  top: ${getHeightPixel(796)};
-  width: 100%;
-  height: ${getHeightPixel(130)};
-  background-color: #25f079;
+  top: ${getHeightPixel(846)};
+  background-color: #00000000;
+  border: none;
 `;
 
 const CustomSheet = styled(Sheet)`
