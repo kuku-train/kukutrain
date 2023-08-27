@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BottomContainer from '../components/Container/BottomContainer';
 import BottomContainer2 from '../components/Container/BottomContainer2';
 import MapContainer from '../components/Container/MapContainer';
 import { getHeightPixel, getPixelToNumber, getWidthPixel } from '../utils/responsive';
-import { HEIGHT } from '../utils/responsive';
 import { deviceModel } from '../utils';
 import { ReactComponent as Ellipse } from '../Assets/icon/Ellipse.svg';
 import { ReactComponent as Close } from '../Assets/icon/Close.svg';
@@ -19,7 +18,6 @@ function MainPage() {
       : deviceModel() === 'ios/naver' || deviceModel() === 'ios/kakao'
       ? 305
       : 105;
-  const [locY, setLocY] = useState(HEIGHT - getPixelToNumber(getHeightPixel(OFFSET__LOCY)));
   const [alcoholIdx, setAlcoholIdx] = useState([]);
   const [foodIdx, setFoodIdx] = useState([]);
   const [noiseIdx, setNoiseIdx] = useState([]);
@@ -29,23 +27,46 @@ function MainPage() {
   const [selectedIdx, setIdx] = useState(1);
   const [banner, setBanner] = useState(true);
 
+  const [install, setInstall] = useState(true);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  const handleBeforeInstallPrompt = event => {
+    event.preventDefault();
+
+    setDeferredPrompt(event);
+  };
+
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstall = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+
+      deferredPrompt.userChoice.then(choiceResult => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('사용자가 앱 설치를 동의했습니다.');
+        } else {
+          console.log('사용자가 앱 설치를 동의하지 않았습니다.');
+        }
+
+        setDeferredPrompt(null);
+      });
+    }
+  };
+
   return (
     <PageStyled>
-      <MapContainer
-        selected={selected}
-        setSelected={setSelected}
-        alcoholIdx={alcoholIdx}
-        foodIdx={foodIdx}
-        noiseIdx={noiseIdx}
-        selectedIdx={selectedIdx}
-      />
       {banner && (
         <>
           <BannerStyled>
             <a className="content" href="https://forms.gle/8ms8F85UdewC9N8A9" target="_blank" rel="noreferrer">
-              <Ellipse width={SIZE} height={SIZE} />
-              <div className="text">KUGODS 디자인 팀 모집중</div>
-              <Ellipse width={SIZE} height={SIZE} />
+              <div className="text">KUGODS 2기 모집중</div>
             </a>
             <div className="close" onClick={() => setBanner(false)}>
               <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
@@ -54,9 +75,49 @@ function MainPage() {
         </>
       )}
 
+      {install && (
+        <>
+          <InstallStyled>
+            <InstallBoxStyled>
+              <div className="textBox">
+                <div className="text">
+                  <div className="red">홈 화면</div>
+                  <div className="grey">에 다운받고</div>
+                </div>
+                <div className="text">
+                  <div className="grey">더&nbsp;</div>
+                  <div className="red">빠르게</div>
+                </div>
+                <div className="text">
+                  <div className="red">확인</div>
+                  <div className="grey">하자!</div>
+                </div>
+              </div>
+              <div className="bottomBox">
+                <div className="close" onClick={() => setInstall(false)}>
+                  <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
+                </div>
+                {deferredPrompt && (
+                  <button className="downButton" onClick={handleInstall}>
+                    다운받기
+                  </button>
+                )}
+              </div>
+            </InstallBoxStyled>
+          </InstallStyled>
+        </>
+      )}
+
+      <MapContainer
+        selected={selected}
+        setSelected={setSelected}
+        alcoholIdx={alcoholIdx}
+        foodIdx={foodIdx}
+        noiseIdx={noiseIdx}
+        selectedIdx={selectedIdx}
+      />
+
       <BottomContainer2
-        // locY={locY}
-        // setLocY={setLocY}
         selected={selected}
         setSelected={setSelected}
         alcoholIdx={alcoholIdx}
@@ -97,6 +158,90 @@ const BannerStyled = styled.a`
     margin: 0 ${getWidthPixel(10)};
     text-align: center;
     font-weight: 600;
+    font-size: ${getWidthPixel(16)};
+    color: #bc323b;
+  }
+
+  .close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: ${getWidthPixel(35)};
+  }
+`;
+
+const InstallStyled = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0000006a;
+  z-index: 102;
+`;
+
+const InstallBoxStyled = styled.a`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  width: ${getWidthPixel(368)};
+  height: ${getHeightPixel(324)};
+  border-radius: ${getHeightPixel(27)};
+  background-color: #fcfcfc;
+  box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.25);
+  z-index: 102;
+
+  .textBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: ${getHeightPixel(8)} 0;
+    font-family: 'Jalnan';
+    font-size: ${getWidthPixel(34)};
+  }
+
+  .red {
+    color: #bc323b;
+  }
+
+  .grey {
+    color: #898989;
+  }
+
+  .bottomBox {
+    width: 100%;
+    height: ${getHeightPixel(120)};
+    border-radius: 0px 0px ${getHeightPixel(27)} ${getHeightPixel(27)};
+    background-color: #bc323b;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .downButton {
+    width: ${getWidthPixel(128)};
+    height: ${getHeightPixel(44)};
+    border: none;
+    border-radius: ${getHeightPixel(22)};
+    background-color: #ffffff;
+    margin-right: ${getWidthPixel(30)};
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
     font-size: ${getWidthPixel(14)};
     color: #bc323b;
   }
@@ -105,9 +250,11 @@ const BannerStyled = styled.a`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    cursor: pointer;
+    color: #ffffff;
     position: absolute;
-    right: ${getWidthPixel(35)};
+    top: ${getHeightPixel(20)};
+    right: ${getWidthPixel(20)};
   }
 `;
 

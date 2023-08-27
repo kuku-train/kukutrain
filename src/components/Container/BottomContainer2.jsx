@@ -7,8 +7,10 @@ import { getHeightPixel } from '../../utils/responsive';
 import { BottomHeader } from '../Header/BottomHeader';
 import BodyContainer from './BodyContainer';
 import { WIDTH } from '../../utils/responsive';
+import { deviceModel } from '../../utils';
 
 import { useOverlay, useModal, OverlayProvider, FocusScope, useButton, useDialog } from 'react-aria';
+import Blank from '../Blank';
 
 export default function BottomContainer2({
   selected,
@@ -43,29 +45,52 @@ export default function BottomContainer2({
               noiseIdx={noiseIdx}
               setNoiseIdx={setNoiseIdx}
             />
+
+            {deviceModel() === 'android' && <Blank height={getHeightPixel(210)} />}
           </HeaderButtonStyled>
         </div>
       )}
-
-      <CustomSheet isOpen={sheetState.isOpen} onClose={sheetState.close}>
-        <OverlayProvider>
-          <FocusScope contain autoFocus restoreFocus>
-            <SheetComp
-              sheetState={sheetState}
-              selected={selected}
-              setSelected={setSelected}
-              selectedIdx={selectedIdx}
-              setIdx={setIdx}
-              alcoholIdx={alcoholIdx}
-              setAlcoholIdx={setAlcoholIdx}
-              foodIdx={foodIdx}
-              setFoodIdx={setFoodIdx}
-              noiseIdx={noiseIdx}
-              setNoiseIdx={setNoiseIdx}
-            />
-          </FocusScope>
-        </OverlayProvider>
-      </CustomSheet>
+      {deviceModel() === 'nomobile' ? (
+        <NoMobileCustomSheet isOpen={sheetState.isOpen} onClose={sheetState.close}>
+          <OverlayProvider>
+            <FocusScope contain autoFocus restoreFocus>
+              <SheetComp
+                sheetState={sheetState}
+                selected={selected}
+                setSelected={setSelected}
+                selectedIdx={selectedIdx}
+                setIdx={setIdx}
+                alcoholIdx={alcoholIdx}
+                setAlcoholIdx={setAlcoholIdx}
+                foodIdx={foodIdx}
+                setFoodIdx={setFoodIdx}
+                noiseIdx={noiseIdx}
+                setNoiseIdx={setNoiseIdx}
+              />
+            </FocusScope>
+          </OverlayProvider>
+        </NoMobileCustomSheet>
+      ) : (
+        <CustomSheet isOpen={sheetState.isOpen} onClose={sheetState.close}>
+          <OverlayProvider>
+            <FocusScope contain autoFocus restoreFocus>
+              <SheetComp
+                sheetState={sheetState}
+                selected={selected}
+                setSelected={setSelected}
+                selectedIdx={selectedIdx}
+                setIdx={setIdx}
+                alcoholIdx={alcoholIdx}
+                setAlcoholIdx={setAlcoholIdx}
+                foodIdx={foodIdx}
+                setFoodIdx={setFoodIdx}
+                noiseIdx={noiseIdx}
+                setNoiseIdx={setNoiseIdx}
+              />
+            </FocusScope>
+          </OverlayProvider>
+        </CustomSheet>
+      )}
     </div>
   );
 }
@@ -125,20 +150,31 @@ const SheetComp = ({
 const HeaderButtonStyled = styled.button`
   display: flex;
   position: absolute;
-  top: ${getHeightPixel(846)};
+  bottom: 0;
   background-color: #00000000;
   border: none;
+`;
+
+const NoMobileCustomSheet = styled(Sheet)`
+  width: ${WIDTH + 'px'};
+  position: absolute;
+  margin-left: calc(50% - 47px);
+  height: 100%;
+
+  .react-modal-sheet-container {
+    height: calc(100% - env(safe-area-inset-top) - ${getHeightPixel(200)}) !important;
+    background-color: #00000000 !important;
+    box-shadow: none !important;
+  }
 `;
 
 const CustomSheet = styled(Sheet)`
   width: ${WIDTH + 'px'};
   position: absolute;
-  margin-left: 45%;
-  margin-top: ${getHeightPixel(150)};
-  height: ${getHeightPixel(926)};
+  height: 100%;
 
   .react-modal-sheet-container {
-    height: calc(100% - env(safe-area-inset-top) - 80px) !important;
+    height: calc(100% - env(safe-area-inset-top) - ${getHeightPixel(200)}) !important;
     background-color: #00000000 !important;
     box-shadow: none !important;
   }
