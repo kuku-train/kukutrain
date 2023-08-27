@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapMarker, Map } from 'react-kakao-maps-sdk';
 import styled, { keyframes } from 'styled-components';
 import Restaurant from '../../Assets/icon/Restaurant.svg';
@@ -8,15 +8,13 @@ import Restaurant_map_gray from '../../Assets/icon/Restaurant_map_gray.svg';
 import { WIDTH } from '../../utils/responsive';
 import { data } from '../../data/data';
 import { FILTER__LIST, FILTER__TYPE__LIST } from '../../constants';
-import CurrentLocationSVG from './CurrentLocationSVG.svg'; // 현위치 SVG 파일 경로를 수정하세요
+import CurrentLocationSVG from './CurrentLocationSVG.svg';
 
 const CENTER = { lat: 37.5843918209331, lng: 127.02957798348103 };
 const SIZE = 27;
 
 export default function MapContainer({ selected, setSelected, alcoholIdx, foodIdx, noiseIdx, selectedIdx }) {
   const { datas } = data;
-  const [currentLocationMarker, setCurrentLocationMarker] = useState(null); // 현위치 마커 상태 추가
-
   let filteredData = null;
   if (selectedIdx === 0) filteredData = datas.filter(data => data.type === 'toilet');
   if (selectedIdx === 1) {
@@ -56,38 +54,46 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
 
   const selectedData = selected === -1 ? null : datas.find(data => data.id === selected);
   const centerPos = selectedData ? selectedData.position : CENTER;
+  const [map, setMap] = useState(null);
 
-  const handleCurrentLocationClick = () => {
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
-
-          console.log(lat, lng);
-
-          // 기존 마커가 있다면 삭제합니다.
-          if (currentLocationMarker) {
-            currentLocationMarker.setMap(null);
-          }
-
-          // 새로운 마커를 생성하여 추가합니다.
-          const marker = new window.kakao.maps.Marker({
-            position: new window.kakao.maps.LatLng(lat, lng),
-            image: new window.kakao.maps.MarkerImage(
-              CurrentLocationSVG, // SVG 파일 경로
-              new window.kakao.maps.Size(40, 40),
-              {
-                offset: new window.kakao.maps.Point(20, 20),
-              }
-            ),
+          const locPosition = new kakao.maps.LatLng(lat, lng);
+          displayMarker(locPosition);
+          setMap(mapInstance => {
+            if (mapInstance) {
+              mapInstance.setCenter(locPosition);
+            }
+            return mapInstance;
           });
-
-          marker.setMap(Map);
-          setCurrentLocationMarker(marker);
-
-          // 지도 중심을 현위치로 이동합니다.
-          Map.setCenter(new window.kakao.maps.LatLng(lat, lng));
+        },
+        error => {
+          console.error('Error getting current location:', error);
+        }
+      );
+    } else {
+      const locPosition = new window.kakao.maps.LatLng(33.450701, 126.570667);
+      const message = 'geolocation을 사용할 수 없어요..';
+    }
+  }, []);
+  const handleCurrentLocationClick = () => {
+    if (navigator.geolocation && map) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const locPosition = new window.kakao.maps.LatLng(lat, lon);
+          displayMarker(locPosition);
+          setMap(mapInstance => {
+            if (mapInstance) {
+              mapInstance.setCenter(locPosition);
+            }
+            return mapInstance;
+          });
         },
         error => {
           console.error('Error getting current location:', error);
@@ -95,10 +101,17 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
       );
     }
   };
+  const displayMarker = locPosition => {
+    const marker = new window.kakao.maps.Marker({
+      map: map,
+      position: locPosition,
+    });
+    map.setCenter(locPosition);
+  };
 
   return (
     <div>
-      <StyledMap center={centerPos} isPanto={true}>
+      <StyledMap center={centerPos} isPanto={true} ref={setMap}>
         {filteredData.map(data => {
           const { id, position, type } = data;
 
