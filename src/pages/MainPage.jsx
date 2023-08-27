@@ -26,38 +26,45 @@ function MainPage() {
   const CLOSE_SIZE = getWidthPixel(10);
   const [selectedIdx, setIdx] = useState(1);
   const [banner, setBanner] = useState(true);
-
   const [install, setInstall] = useState(true);
+
+  const [isShown, setIsShown] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
-  const handleBeforeInstallPrompt = event => {
-    event.preventDefault();
-
-    setDeferredPrompt(event);
+  const handleClick = async () => {
+    setIsShown(false);
+    if (!deferredPrompt) {
+      return;
+    }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    setDeferredPrompt(null);
   };
 
-  useEffect(() => {
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  const InstallPrompt = () => {
+    useEffect(() => {
+      const handleBeforeInstallPrompt = e => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+        setIsShown(true);
+      };
 
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-  const handleInstall = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      };
+    }, []);
 
-      deferredPrompt.userChoice.then(choiceResult => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('사용자가 앱 설치를 동의했습니다.');
-        } else {
-          console.log('사용자가 앱 설치를 동의하지 않았습니다.');
-        }
-
-        setDeferredPrompt(null);
-      });
+    if (deviceModel() === 'ios' && !isShown) {
+      return null;
     }
+
+    return (
+      <button className="downButton" onClick={handleClick}>
+        다운받기
+      </button>
+    );
   };
 
   return (
@@ -97,11 +104,8 @@ function MainPage() {
                 <div className="close" onClick={() => setInstall(false)}>
                   <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
                 </div>
-                {deferredPrompt && (
-                  <button className="downButton" onClick={handleInstall}>
-                    다운받기
-                  </button>
-                )}
+
+                <InstallPrompt />
               </div>
             </InstallBoxStyled>
           </InstallStyled>
