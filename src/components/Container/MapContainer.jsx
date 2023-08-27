@@ -16,7 +16,7 @@ const SIZE = 27;
 export default function MapContainer({ selected, setSelected, alcoholIdx, foodIdx, noiseIdx, selectedIdx }) {
   const { datas } = data;
   const [currentLocationMarker, setCurrentLocationMarker] = useState(null); // 현위치 마커 상태 추가
-  const [Map, setMap] = useState(null); // map 상태 추가
+
   let filteredData = null;
   if (selectedIdx === 0) filteredData = datas.filter(data => data.type === 'toilet');
   if (selectedIdx === 1) {
@@ -58,11 +58,13 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
   const centerPos = selectedData ? selectedData.position : CENTER;
 
   const handleCurrentLocationClick = () => {
-    if (navigator.geolocation && Map) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
+
+          console.log(lat, lng);
 
           // 기존 마커가 있다면 삭제합니다.
           if (currentLocationMarker) {

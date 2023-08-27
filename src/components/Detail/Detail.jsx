@@ -20,50 +20,34 @@ function FoodComponent({ image = '이미지 없음', name }) {
 
 export default function Detail({ locY, restaurant_id }) {
   const market = data['datas'].find(data => data.id === restaurant_id);
-  const { name, subname, addr, phone, time, img_main } = market;
+  const { addr, phone, time, img_main } = market;
 
   return (
     <StyledDetailContainer locY={locY}>
       <div className="bl-container main">
         <img src={img_main} className="img item" />
-        <StyledFont className="name item" color={COLOR[0]} fw={600}>
-          {name}
-        </StyledFont>
-        <StyledFont className="type item" color={COLOR[1]}>
-          {subname}
-        </StyledFont>
       </div>
 
-      <div className="split split-first"></div>
-
-      <div className="bl-container sub">
-        <div className="pos bl-item">
-          <Marker className="marker item-con" width={ICON_SIZE} height={ICON_SIZE} />
-          <StyledFont className="addr item-text" color={COLOR[2]}>
-            {addr}
-          </StyledFont>
-        </div>
-      </div>
-
-      <div className="inner-split"></div>
-
-      <div className="bl-container sub">
-        <div className="contact bl-item">
-          <Call className="call item-icon" width={ICON_SIZE} height={ICON_SIZE} />
-          <StyledFont className="number item-text" color={COLOR[2]}>
-            {phone || '미제공'}
-          </StyledFont>
-        </div>
-      </div>
-
-      <div className="inner-split"></div>
-
-      <div className="bl-container sub">
-        <div className="time bl-item">
-          <Clock className="clock item-icon" width={ICON_SIZE} height={ICON_SIZE} />
-          <StyledFont className="tm item-text" color={COLOR[2]}>
-            {time ? time.split('~').join(' ~ ') : '미제공'}
-          </StyledFont>
+      <div className="content-box">
+        <div className="bl-container sub">
+          <div className="bl-item">
+            <Marker className="marker item-con" width={ICON_SIZE} height={ICON_SIZE} />
+            <StyledFont className="addr item-text" color={COLOR[2]}>
+              {addr}
+            </StyledFont>
+          </div>
+          <div className="contact bl-item">
+            <Call className="call item-icon" width={ICON_SIZE} height={ICON_SIZE} />
+            <StyledFont className="number item-text" color={COLOR[2]}>
+              {phone || '미제공'}
+            </StyledFont>
+          </div>
+          <div className="time bl-item">
+            <Clock className="clock item-icon" width={ICON_SIZE} height={ICON_SIZE} />
+            <StyledFont className="tm item-text" color={COLOR[2]}>
+              {time ? time.split('~').join(' ~ ') : '미제공'}
+            </StyledFont>
+          </div>
         </div>
       </div>
 
@@ -84,7 +68,7 @@ const StyledDetailContainer = styled.div`
   overflow-y: auto;
 
   .split {
-    border: ${getHeightPixel(1)} solid #dedede;
+    border: ${getHeightPixel(10)} solid #dedede;
   }
 
   .split-first {
@@ -93,6 +77,16 @@ const StyledDetailContainer = styled.div`
 
   .inner-split {
     border: ${getHeightPixel(1)} solid #efefef;
+  }
+
+  .content-box {
+    margin-top: ${getHeightPixel(12)};
+    margin-bottom: ${getHeightPixel(12)};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
   .bl-container {
@@ -114,6 +108,7 @@ const StyledDetailContainer = styled.div`
       height: ${getHeightPixel(200)};
       border: 1px solid #e3e3e3;
       border-radius: 15px;
+      margin-top: ${getHeightPixel(20)};
     }
 
     .name {
@@ -176,6 +171,8 @@ const StyledGrid = styled.div`
   .item-img {
     width: ${getWidthPixel(104)};
     height: ${getWidthPixel(100)};
+
+    object-fit: cover;
 
     border-bottom: 1px solid #e3e3e3;
   }
