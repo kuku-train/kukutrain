@@ -185,14 +185,14 @@ const StyledMap = styled(Map)`
 
 const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 12vh;
-  left: 2vw;
+  bottom: 15vh;
+  left: 3vw;
   background: #fff;
   border: none;
   border-radius: 50%;
-  padding: 2vh;
-  width: 3vh;
-  height: 3vh;
+  padding: 0vh;
+  width: 5vh;
+  height: 5vh;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
