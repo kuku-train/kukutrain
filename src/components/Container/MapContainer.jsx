@@ -9,7 +9,6 @@ import { WIDTH } from '../../utils/responsive';
 import { data } from '../../data/data';
 import { FILTER__LIST, FILTER__TYPE__LIST } from '../../constants';
 import CurrentLocationSVG from './CurrentLocationSVG.svg';
-//import CustomMarkerSVG from './CustomMarker.svg'; // 실제 경로로 바꾸세요
 
 const CENTER = { lat: 37.5843918209331, lng: 127.02957798348103 };
 const SIZE = 27;
@@ -186,12 +185,14 @@ const StyledMap = styled(Map)`
 
 const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 100px;
-  left: 20px;
+  bottom: 12vh;
+  left: 2vw;
   background: #fff;
   border: none;
   border-radius: 50%;
-  padding: 6px;
+  padding: 2vh;
+  width: 3vh;
+  height: 3vh;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
