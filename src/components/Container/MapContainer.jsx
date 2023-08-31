@@ -54,6 +54,8 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
   const selectedData = selected === -1 ? null : datas.find(data => data.id === selected);
   const centerPos = selectedData ? selectedData.position : CENTER;
   const [map, setMap] = useState(null);
+  const [userMarker, setUserMarker] = useState(null);
+
   const getCurrentPosition = callback => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -79,28 +81,94 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
         }
         return mapInstance;
       });
+
+      let marker = userMarker;
+
+      if (!marker) {
+        marker = new window.kakao.maps.Marker({ map: map, position: locPosition });
+        setUserMarker(marker);
+      } else {
+        marker.setPosition(locPosition);
+      }
+
+      const watchId = navigator.geolocation.watchPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const newPos = new window.kakao.maps.LatLng(lat, lon);
+
+          setUserMarker(prevMarker => {
+            prevMarker.setPosition(newPos);
+            return prevMarker;
+          });
+        },
+        error => {
+          console.error('Error getting current location:', error);
+        },
+        { timeout: 2000 }
+      );
+
+      return () => {
+        navigator.geolocation.clearWatch(watchId);
+      };
     });
   }, []);
-
+  const enableLocationLink = 'chrome://settings/content/location'; // Chrome location settings URL
   const handleCurrentLocationClick = () => {
-    if (navigator.geolocation && map) {
-      getCurrentPosition(locPosition => {
-        displayMarker(locPosition);
-        setMap(mapInstance => {
-          if (mapInstance) {
-            mapInstance.setCenter(locPosition);
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: 'geolocation' })
+        .then(permissionStatus => {
+          if (permissionStatus.state === 'granted') {
+            getCurrentPosition(locPosition => {
+              displayMarker(locPosition);
+              setMap(mapInstance => {
+                if (mapInstance) {
+                  mapInstance.setCenter(locPosition);
+                }
+                return mapInstance;
+              });
+              let marker = userMarker;
+              if (!marker) {
+                marker = new window.kakao.maps.Marker({ map: map, position: locPosition });
+                setUserMarker(marker);
+              } else {
+                marker.setPosition(locPosition);
+              }
+            });
+          } else if (permissionStatus.state === 'denied') {
+            alert('현위치를 사용하려면 위치 권한을 허용해주세요.');
+            const confirmSetting = window.confirm('위치 권한을 설정하려면 "확인"을 클릭하세요.');
+            if (confirmSetting) {
+              window.location.href = enableLocationLink;
+            }
           }
-          return mapInstance;
+        })
+        .catch(error => {
+          console.error('Error checking location permission:', error);
         });
-      });
     }
   };
+
   const displayMarker = locPosition => {
+    // 기존 마커가 있으면 삭제
+    if (userMarker) {
+      userMarker.setMap(null);
+    }
+
+    // 새로운 마커 생성
     const marker = new window.kakao.maps.Marker({
       map: map,
       position: locPosition,
     });
-    map.setCenter(locPosition);
+
+    // 유저 마커 업데이트
+    setUserMarker(marker);
+
+    // map이 존재하는 경우에만 지도 중심 업데이트
+    if (Map) {
+      map.setCenter(locPosition);
+    }
   };
 
   return (
