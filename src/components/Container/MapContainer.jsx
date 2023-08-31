@@ -5,11 +5,10 @@ import Restaurant from '../../Assets/icon/Restaurant.svg';
 import Cheer from '../../Assets/icon/Cheer.svg';
 import Toilet from '../../Assets/icon/Toilet.svg';
 import Restaurant_map_gray from '../../Assets/icon/Restaurant_map_gray.svg';
-import { WIDTH } from '../../utils/responsive';
+import { WIDTH, getHeightPixel } from '../../utils/responsive';
 import { data } from '../../data/data';
 import { FILTER__LIST, FILTER__TYPE__LIST } from '../../constants';
 import CurrentLocationSVG from './CurrentLocationSVG.svg';
-
 const CENTER = { lat: 37.5843918209331, lng: 127.02957798348103 };
 const SIZE = 27;
 
@@ -247,14 +246,14 @@ const StyledMap = styled(Map)`
 
 const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 15vh;
-  left: 3vw;
+  bottom: ${getHeightPixel(120)};
+  left: 2vw;
   background: #fff;
   border: none;
   border-radius: 50%;
   padding: 0vh;
-  width: 5vh;
-  height: 5vh;
+  width: 4vh;
+  height: 4vh;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
