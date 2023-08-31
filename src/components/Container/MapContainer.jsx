@@ -51,54 +51,48 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
           });
   }
   if (selectedIdx === 2) filteredData = datas.filter(data => data.type === 'cheer');
-
   const selectedData = selected === -1 ? null : datas.find(data => data.id === selected);
   const centerPos = selectedData ? selectedData.position : CENTER;
   const [map, setMap] = useState(null);
-
-  useEffect(() => {
+  const getCurrentPosition = callback => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          const locPosition = new kakao.maps.LatLng(lat, lng);
-          displayMarker(locPosition);
-          setMap(mapInstance => {
-            if (mapInstance) {
-              mapInstance.setCenter(locPosition);
-            }
-            return mapInstance;
-          });
-        },
-        error => {
-          console.error('Error getting current location:', error);
-        }
-      );
-    } else {
-      const locPosition = new window.kakao.maps.LatLng(33.450701, 126.570667);
-      const message = 'geolocation을 사용할 수 없어요..';
-    }
-  }, []);
-  const handleCurrentLocationClick = () => {
-    if (navigator.geolocation && map) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
           const locPosition = new window.kakao.maps.LatLng(lat, lon);
-          displayMarker(locPosition);
-          setMap(mapInstance => {
-            if (mapInstance) {
-              mapInstance.setCenter(locPosition);
-            }
-            return mapInstance;
-          });
+          callback(locPosition);
         },
         error => {
           console.error('Error getting current location:', error);
         }
       );
+    }
+  };
+
+  useEffect(() => {
+    getCurrentPosition(locPosition => {
+      displayMarker(locPosition);
+      setMap(mapInstance => {
+        if (mapInstance) {
+          mapInstance.setCenter(locPosition);
+        }
+        return mapInstance;
+      });
+    });
+  }, []);
+
+  const handleCurrentLocationClick = () => {
+    if (navigator.geolocation && map) {
+      getCurrentPosition(locPosition => {
+        displayMarker(locPosition);
+        setMap(mapInstance => {
+          if (mapInstance) {
+            mapInstance.setCenter(locPosition);
+          }
+          return mapInstance;
+        });
+      });
     }
   };
   const displayMarker = locPosition => {
