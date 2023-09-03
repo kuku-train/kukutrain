@@ -72,8 +72,8 @@ function MainPage() {
       {banner && (
         <>
           <BannerStyled>
-            <a className="content" href="https://forms.gle/8ms8F85UdewC9N8A9" target="_blank" rel="noreferrer">
-              <div className="text">KUGODS 2기 모집중</div>
+            <a className="content" href="https://forms.gle/1CixQBs2PhZ9pytP6" target="_blank" rel="noreferrer">
+              <div className="text">GDSC KU 2기 모집중</div>
             </a>
             <div className="close" onClick={() => setBanner(false)}>
               <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
