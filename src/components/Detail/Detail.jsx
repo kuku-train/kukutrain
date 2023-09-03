@@ -30,7 +30,7 @@ export default function Detail({ locY, restaurant_id }) {
 
       <div className="content-box">
         <div className="bl-container sub">
-          <div className="bl-item">
+          <div className="pos bl-item">
             <Marker className="marker item-con" width={ICON_SIZE} height={ICON_SIZE} />
             <StyledFont className="addr item-text" color={COLOR[2]}>
               {addr}

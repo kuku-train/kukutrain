@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BottomContainer from '../components/Container/BottomContainer';
 import BottomContainer2 from '../components/Container/BottomContainer2';
 import MapContainer from '../components/Container/MapContainer';
 import { getHeightPixel, getPixelToNumber, getWidthPixel } from '../utils/responsive';
 import { deviceModel } from '../utils';
 import { ReactComponent as Ellipse } from '../Assets/icon/Ellipse.svg';
 import { ReactComponent as Close } from '../Assets/icon/Close.svg';
+import IOSdown from '../Assets/logo/IOSdown.png';
 
 function MainPage() {
   const [selected, setSelected] = useState(-1);
@@ -56,14 +56,70 @@ function MainPage() {
       };
     }, []);
 
-    if (deviceModel() === 'ios' && !isShown) {
+    if (!(deviceModel() === 'ios' || deviceModel() === 'ios/naver' || deviceModel() === 'ios/kakao') && !isShown) {
       return null;
     }
 
+    if (deviceModel() === 'ios' || deviceModel() === 'ios/naver' || deviceModel() === 'ios/kakao') {
+      return (
+        <InstallStyled>
+          <InstallBoxStyledIOS>
+            <div className="close" onClick={() => setInstall(false)}>
+              <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
+            </div>
+            <div className="textBox">
+              <div className="text">
+                <div className="white">다운 받는 방법 👇</div>
+              </div>
+              <div className="img">
+                <div className="img-gradation" />
+                <img src={IOSdown} alt="IOSdown" width="100%" />
+              </div>
+              <div className="text">
+                <div className="red">클릭 후</div>
+              </div>
+              <div className="text">
+                <div className="red">원하는 이름으로 설정</div>
+              </div>
+            </div>
+
+            <div className="bottomBox">
+              <button className="downButton" onClick={() => setInstall(false)}>
+                다운받기
+              </button>
+            </div>
+          </InstallBoxStyledIOS>
+        </InstallStyled>
+      );
+    }
+
     return (
-      <button className="downButton" onClick={handleClick}>
-        다운받기
-      </button>
+      <InstallStyled>
+        <InstallBoxStyled>
+          <div className="close" onClick={() => setInstall(false)}>
+            <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
+          </div>
+          <div className="textBox">
+            <div className="text">
+              <div className="red">홈 화면</div>
+              <div className="grey">에 다운받고</div>
+            </div>
+            <div className="text">
+              <div className="grey">더&nbsp;</div>
+              <div className="red">빠르게</div>
+            </div>
+            <div className="text">
+              <div className="red">확인</div>
+              <div className="grey">하자!</div>
+            </div>
+          </div>
+          <div className="bottomBox">
+            <button className="downButton" onClick={handleClick}>
+              다운받기
+            </button>
+          </div>
+        </InstallBoxStyled>
+      </InstallStyled>
     );
   };
 
@@ -82,35 +138,7 @@ function MainPage() {
         </>
       )}
 
-      {install && (
-        <>
-          <InstallStyled>
-            <InstallBoxStyled>
-              <div className="textBox">
-                <div className="text">
-                  <div className="red">홈 화면</div>
-                  <div className="grey">에 다운받고</div>
-                </div>
-                <div className="text">
-                  <div className="grey">더&nbsp;</div>
-                  <div className="red">빠르게</div>
-                </div>
-                <div className="text">
-                  <div className="red">확인</div>
-                  <div className="grey">하자!</div>
-                </div>
-              </div>
-              <div className="bottomBox">
-                <div className="close" onClick={() => setInstall(false)}>
-                  <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
-                </div>
-
-                <InstallPrompt />
-              </div>
-            </InstallBoxStyled>
-          </InstallStyled>
-        </>
-      )}
+      {install && <InstallPrompt />}
 
       <MapContainer
         selected={selected}
@@ -248,6 +276,94 @@ const InstallBoxStyled = styled.a`
     font-weight: bold;
     font-size: ${getWidthPixel(14)};
     color: #bc323b;
+  }
+
+  .close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #ffffff;
+    position: absolute;
+    top: ${getHeightPixel(20)};
+    right: ${getWidthPixel(20)};
+  }
+`;
+
+const InstallBoxStyledIOS = styled.a`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  width: ${getWidthPixel(368)};
+
+  border-radius: ${getHeightPixel(27)};
+  background-color: #2b2827;
+  box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.25);
+  z-index: 102;
+
+  .textBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding: ${getHeightPixel(20)};
+  }
+
+  .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: ${getHeightPixel(8)} 0;
+    font-family: 'Jalnan';
+  }
+
+  .red {
+    font-size: ${getWidthPixel(32)};
+    color: #bc323b;
+  }
+
+  .white {
+    font-size: ${getWidthPixel(34)};
+    color: #bababa;
+  }
+
+  .img {
+    width: 100%;
+  }
+
+  .img-gradation {
+    width: ${getWidthPixel(340)};
+    height: ${getHeightPixel(272)};
+    position: absolute;
+    background: linear-gradient(#2b2827, #2b282760);
+  }
+
+  .bottomBox {
+    width: 100%;
+    height: ${getHeightPixel(100)};
+    border-radius: 0px 0px ${getHeightPixel(27)} ${getHeightPixel(27)};
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .downButton {
+    width: ${getWidthPixel(128)};
+    height: ${getHeightPixel(44)};
+    border: none;
+    border-radius: ${getHeightPixel(22)};
+    background-color: #bc323b;
+    margin-right: ${getWidthPixel(30)};
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: ${getWidthPixel(14)};
+    color: white;
   }
 
   .close {

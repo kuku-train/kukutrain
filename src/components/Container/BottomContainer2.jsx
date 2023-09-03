@@ -11,6 +11,7 @@ import { deviceModel } from '../../utils';
 
 import { useOverlay, useModal, OverlayProvider, FocusScope, useButton, useDialog } from 'react-aria';
 import Blank from '../Blank';
+import { m } from 'framer-motion';
 
 export default function BottomContainer2({
   selected,
@@ -31,7 +32,7 @@ export default function BottomContainer2({
   return (
     <div>
       {!sheetState.isOpen && (
-        <div>
+        <HeaderStyled>
           <HeaderButtonStyled {...openButton.buttonProps} ref={openButtonRef}>
             <BottomHeader
               selected={selected}
@@ -48,7 +49,8 @@ export default function BottomContainer2({
 
             {deviceModel() === 'android' && <Blank height={getHeightPixel(210)} />}
           </HeaderButtonStyled>
-        </div>
+          <BlankBox />
+        </HeaderStyled>
       )}
       {deviceModel() === 'nomobile' ? (
         <NoMobileCustomSheet isOpen={sheetState.isOpen} onClose={sheetState.close}>
@@ -147,10 +149,21 @@ const SheetComp = ({
   );
 };
 
+const HeaderStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: ${getHeightPixel(86)};
+  bottom: 0;
+  z-index: 100;
+`;
+
+const BlankBox = styled.div``;
+
 const HeaderButtonStyled = styled.button`
   display: flex;
-  position: absolute;
-  bottom: 0;
   background-color: #00000000;
   border: none;
 `;
