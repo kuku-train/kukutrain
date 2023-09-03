@@ -7,6 +7,7 @@ import { deviceModel } from '../utils';
 import { ReactComponent as Ellipse } from '../Assets/icon/Ellipse.svg';
 import { ReactComponent as Close } from '../Assets/icon/Close.svg';
 import IOSdown from '../Assets/logo/IOSdown.png';
+import { ReactComponent as ShareIcon } from '../Assets/icon/share_ios.svg';
 
 function MainPage() {
   const [selected, setSelected] = useState(-1);
@@ -76,7 +77,10 @@ function MainPage() {
                 <img src={IOSdown} alt="IOSdown" width="100%" />
               </div>
               <div className="text">
-                <div className="red">클릭 후</div>
+                <div className="red">
+                  <ShareIconStyled />
+                  클릭 후
+                </div>
               </div>
               <div className="text">
                 <div className="red">원하는 이름으로 설정</div>
@@ -376,6 +380,11 @@ const InstallBoxStyledIOS = styled.a`
     top: ${getHeightPixel(20)};
     right: ${getWidthPixel(20)};
   }
+`;
+
+const ShareIconStyled = styled(ShareIcon)`
+  width: ${getWidthPixel(32)};
+  height: ${getWidthPixel(32)};
 `;
 
 const PageStyled = styled.div`
