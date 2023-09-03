@@ -336,7 +336,7 @@ const InstallBoxStyledIOS = styled.a`
 
   .img-gradation {
     width: ${getWidthPixel(340)};
-    height: ${getHeightPixel(272)};
+    height: ${getHeightPixel(354)};
     position: absolute;
     background: linear-gradient(#2b2827, #2b282760);
   }
