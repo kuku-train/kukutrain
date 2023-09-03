@@ -352,11 +352,11 @@ const InstallBoxStyledIOS = styled.a`
 
   .downButton {
     width: ${getWidthPixel(128)};
-    height: ${getHeightPixel(44)};
+    height: ${getHeightPixel(54)};
     border: none;
     border-radius: ${getHeightPixel(22)};
     background-color: #bc323b;
-    margin-right: ${getWidthPixel(30)};
+    margin-right: ${getWidthPixel(20)};
     display: flex;
     cursor: pointer;
     justify-content: center;
