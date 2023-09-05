@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BottomContainer2 from '../components/Container/BottomContainer2';
+import BottomContainer from '../components/Container/BottomContainer';
 import MapContainer from '../components/Container/MapContainer';
 import { getHeightPixel, getPixelToNumber, getWidthPixel } from '../utils/responsive';
 import { deviceModel } from '../utils';
-import { ReactComponent as Ellipse } from '../Assets/icon/Ellipse.svg';
+import { HEIGHT } from '../utils/responsive';
 import { ReactComponent as Close } from '../Assets/icon/Close.svg';
 import IOSdown from '../Assets/logo/IOSdown.png';
 import { ReactComponent as ShareIcon } from '../Assets/icon/share_ios.svg';
@@ -19,6 +19,7 @@ function MainPage() {
       : deviceModel() === 'ios/naver' || deviceModel() === 'ios/kakao'
       ? 305
       : 105;
+  const [locY, setLocY] = useState(HEIGHT - getPixelToNumber(getHeightPixel(OFFSET__LOCY)));
   const [alcoholIdx, setAlcoholIdx] = useState([]);
   const [foodIdx, setFoodIdx] = useState([]);
   const [noiseIdx, setNoiseIdx] = useState([]);
@@ -28,6 +29,7 @@ function MainPage() {
   const [selectedIdx, setIdx] = useState(1);
   const [banner, setBanner] = useState(true);
   const [install, setInstall] = useState(true);
+  const [betaInformation, setBetaInformation] = useState(true);
 
   const [isShown, setIsShown] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -141,9 +143,32 @@ function MainPage() {
           </BannerStyled>
         </>
       )}
-
       {install && <InstallPrompt />}
-
+      {betaInformation && (
+        <InstallStyled>
+          <InstallBoxStyledIOS>
+            <div className="close" onClick={() => setBetaInformation(false)}>
+              <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
+            </div>
+            <div className="textBox">
+              <div className="text">
+                <div className="red">- 쿠쿠트레인 공지 -</div>
+              </div>
+              <div className="text">
+                <div className="small">현재 고려대학교 교우회 측에서 무료 주점이 아직 공지되지 않았습니다.</div>
+              </div>
+              <div className="text">
+                <div className="small">
+                  2023년 고연전 무료 주점이 확정되는 대로 해당 정보를 입력하여 서비스할 수 있도록 하겠습니다.
+                </div>
+              </div>
+              <div className="text">
+                <div className="small">이용에 불편을 끼쳐 드려 죄송합니다.</div>
+              </div>
+            </div>
+          </InstallBoxStyledIOS>
+        </InstallStyled>
+      )}
       <MapContainer
         selected={selected}
         setSelected={setSelected}
@@ -152,8 +177,9 @@ function MainPage() {
         noiseIdx={noiseIdx}
         selectedIdx={selectedIdx}
       />
-
-      <BottomContainer2
+      <BottomContainer
+        locY={locY}
+        setLocY={setLocY}
         selected={selected}
         setSelected={setSelected}
         alcoholIdx={alcoholIdx}
@@ -165,6 +191,20 @@ function MainPage() {
         selectedIdx={selectedIdx}
         setIdx={setIdx}
       />
+      {/* <BottomContainer2
+        selected={selected}
+        setSelected={setSelected}
+        alcoholIdx={alcoholIdx}
+        setAlcoholIdx={setAlcoholIdx}
+        foodIdx={foodIdx}
+        setFoodIdx={setFoodIdx}
+        noiseIdx={noiseIdx}
+        setNoiseIdx={setNoiseIdx}
+        selectedIdx={selectedIdx}
+        setIdx={setIdx}
+      /> */}
+
+      {/* <BottomSheet /> */}
     </PageStyled>
   );
 }
@@ -332,6 +372,12 @@ const InstallBoxStyledIOS = styled.a`
   .white {
     font-size: ${getWidthPixel(34)};
     color: #bababa;
+  }
+
+  .small {
+    font-size: ${getWidthPixel(20)};
+    color: white;
+    line-height: ${getHeightPixel(30)};
   }
 
   .img {

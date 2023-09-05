@@ -246,7 +246,7 @@ const StyledMap = styled(Map)`
 
 const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: ${getHeightPixel(120)};
+  bottom: 150px;
   left: 2vw;
   background: #fff;
   border: none;
@@ -259,4 +259,5 @@ const CurrentLocationButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 `;

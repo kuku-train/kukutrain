@@ -54,5 +54,4 @@ const ContainerStyled = styled.div`
     margin-top: ${marginTop};
   `};
   width: 100%;
-  height: ${getHeightPixel(926)};
 `;

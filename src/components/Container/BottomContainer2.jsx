@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import Sheet from 'react-modal-sheet';
 
 import { getHeightPixel } from '../../utils/responsive';
-import { BottomHeader } from '../Header/BottomHeader';
+import { BottomHeader2 } from '../Header/BottomHeader2';
 import BodyContainer from './BodyContainer';
 import { WIDTH } from '../../utils/responsive';
 import { deviceModel } from '../../utils';
@@ -34,7 +34,7 @@ export default function BottomContainer2({
       {!sheetState.isOpen && (
         <HeaderStyled>
           <HeaderButtonStyled {...openButton.buttonProps} ref={openButtonRef}>
-            <BottomHeader
+            <BottomHeader2
               selected={selected}
               setSelected={setSelected}
               selectedIdx={selectedIdx}
@@ -120,7 +120,7 @@ const SheetComp = ({
     <div>
       <Sheet.Container {...overlay.overlayProps} {...dialog.dialogProps} ref={containerRef}>
         <Sheet.Header>
-          <BottomHeader
+          <BottomHeader2
             selected={selected}
             setSelected={setSelected}
             selectedIdx={selectedIdx}

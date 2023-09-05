@@ -7,7 +7,7 @@ import { getWidthPixel, getHeightPixel } from '../../utils/responsive';
 import { palette } from '../../constants/palette';
 import Detail from '../Detail/Detail';
 
-export default function BodyContainer({ alcoholIdx, foodIdx, noiseIdx, selected, setSelected, selectedIdx }) {
+export default function BodyContainer({ locY, alcoholIdx, foodIdx, noiseIdx, selected, setSelected, selectedIdx }) {
   return (
     <ContainerStyled>
       {selected === -1 ? (
@@ -22,7 +22,7 @@ export default function BodyContainer({ alcoholIdx, foodIdx, noiseIdx, selected,
           />
         </>
       ) : (
-        <Detail restaurant_id={selected} />
+        <Detail locY={locY} restaurant_id={selected} />
       )}
     </ContainerStyled>
   );
