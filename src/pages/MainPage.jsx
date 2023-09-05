@@ -155,7 +155,7 @@ function MainPage() {
                 <div className="red">- 쿠쿠트레인 공지 -</div>
               </div>
               <div className="text">
-                <div className="small">현재 고려대학교 교우회 측에서 무료 주점이 아직 공지되지 않았습니다.</div>
+                <div className="small">현재 고려대학교 무료 주점이 아직 공지되지 않았습니다.</div>
               </div>
               <div className="text">
                 <div className="small">
