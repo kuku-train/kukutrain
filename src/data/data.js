@@ -818,7 +818,7 @@ export const data = {
         },
         {
           name: '소떡',
-          image: require('../Assset/image/두꺼비로맨스/sdsd.jpeg'),
+          image: require('../Assets/image/두꺼비로맨스/sdsd.jpeg'),
         },
       ],
       train: null,
