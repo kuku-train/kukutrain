@@ -5,7 +5,7 @@ import Restaurant from '../../Assets/icon/Restaurant.svg';
 import Cheer from '../../Assets/icon/Cheer.svg';
 import Toilet from '../../Assets/icon/Toilet.svg';
 import Restaurant_map_gray from '../../Assets/icon/Restaurant_map_gray.svg';
-import { WIDTH, getHeightPixel } from '../../utils/responsive';
+import { WIDTH, getHeightPixel, getWidthPixel } from '../../utils/responsive';
 import { data } from '../../data/data';
 import { FILTER__LIST, FILTER__TYPE__LIST } from '../../constants';
 import CurrentLocationSVG from './CurrentLocationSVG.svg';
@@ -166,8 +166,8 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
       map.setCenter(locPosition);
     }
   };
-  const imageSrc = 'https://www.korea.ac.kr/mbshome/mbs/university/images/img/img_1_4_3_1_02.png';
-  const imageSize = new kakao.maps.Size(60, 70);
+  let imageSrc = 'https://www.korea.ac.kr/mbshome/mbs/university/images/img/img_1_4_3_1_02.png';
+  let imageSize = new kakao.maps.Size(60, 70);
   const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
   return (
@@ -246,14 +246,14 @@ const StyledMap = styled(Map)`
 
 const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 20vh;
-  left: 2vw;
+  bottom: ${getHeightPixel(150)};
+  left: ${getWidthPixel(30)};
   background: #fff;
   border: none;
   border-radius: 50%;
-  padding: none;
-  width: 5vh;
-  height: 5vh;
+  padding: 0;
+  width: ${getWidthPixel(50)};
+  height: ${getHeightPixel(50)};
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
