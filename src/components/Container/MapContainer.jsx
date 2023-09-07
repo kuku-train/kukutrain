@@ -84,7 +84,7 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
       let marker = userMarker;
 
       if (!marker) {
-        marker = new window.kakao.maps.Marker({ map: map, position: locPosition });
+        marker = new window.kakao.maps.Marker({ map: map, position: locPosition, image: markerImage });
         setUserMarker(marker);
       } else {
         marker.setPosition(locPosition);
@@ -129,7 +129,7 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
               });
               let marker = userMarker;
               if (!marker) {
-                marker = new window.kakao.maps.Marker({ map: map, position: locPosition });
+                marker = new window.kakao.maps.Marker({ map: map, position: locPosition, image: markerImage });
                 setUserMarker(marker);
               } else {
                 marker.setPosition(locPosition);
@@ -150,25 +150,25 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
   };
 
   const displayMarker = locPosition => {
-    // 기존 마커가 있으면 삭제
     if (userMarker) {
       userMarker.setMap(null);
     }
 
-    // 새로운 마커 생성
     const marker = new window.kakao.maps.Marker({
       map: map,
       position: locPosition,
+      image: markerImage,
     });
 
-    // 유저 마커 업데이트
     setUserMarker(marker);
 
-    // map이 존재하는 경우에만 지도 중심 업데이트
     if (Map) {
       map.setCenter(locPosition);
     }
   };
+  const imageSrc = 'https://www.korea.ac.kr/mbshome/mbs/university/images/img/img_1_4_3_1_02.png';
+  const imageSize = new kakao.maps.Size(60, 70);
+  const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
   return (
     <div>
@@ -214,7 +214,7 @@ export default function MapContainer({ selected, setSelected, alcoholIdx, foodId
         })}
       </StyledMap>
       <CurrentLocationButton onClick={handleCurrentLocationClick}>
-        <img src={CurrentLocationSVG} alt="현위치" />
+        <img src={CurrentLocationSVG} alt="현위치" style={{ width: '70%', height: '70%' }} />
       </CurrentLocationButton>
     </div>
   );
@@ -246,14 +246,14 @@ const StyledMap = styled(Map)`
 
 const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 150px;
+  bottom: 20vh;
   left: 2vw;
   background: #fff;
   border: none;
   border-radius: 50%;
-  padding: 0vh;
-  width: 4vh;
-  height: 4vh;
+  padding: none;
+  width: 5vh;
+  height: 5vh;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
