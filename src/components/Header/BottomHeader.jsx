@@ -36,19 +36,14 @@ export function BottomHeader({
 }) {
   const SCROLL__OFFSET__Y = 40;
   const MinY = 100;
-  const MaxY = 700;
+  const MaxY = 500;
 
   const [isScroll, setScroll] = useState(false);
   const [isToggle, setToggle] = useState(false);
   const [flag, setFlag] = useState(false);
   const [type, setType] = useState(-1);
-  const [nextY, setNextY] = useState(0);
-  const [direction, setDirection] = useState(0);
   const [startY, setStartY] = useState(0);
   const [endY, setEndY] = useState(0);
-
-  //const isScroll = true;
-  const intervalRef = useRef(null);
 
   useEffect(() => {
     let timeoutId;
@@ -73,45 +68,13 @@ export function BottomHeader({
     }
   }, [endY]);
 
-  // useEffect(() => {
-  //   console.log(locY, getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)), MinY, MaxY);
-  //   if (isScroll) {
-  //     if (direction < locY) {
-  //       setNextY(MinY);
-  //     } else {
-  //       setNextY(MaxY);
-  //     }
-  //   } else {
-  //     // Clear the previous interval before creating a new one
-  //     if (intervalRef.current) {
-  //       clearInterval(intervalRef.current);
-  //     }
-
-  //     intervalRef.current = setInterval(() => {
-  //       if (locY < nextY) {
-  //         setLocY(prevY => prevY + 100);
-  //       } else if (locY > nextY) {
-  //         setLocY(prevY => prevY - 100);
-  //       }
-  //     }, 1);
-  //   }
-
-  // Cleanup: clear the interval when the component unmounts or when isScroll changes
-  //   return () => {
-  //     if (intervalRef.current) {
-  //       clearInterval(intervalRef.current);
-  //     }
-  //   };
-  // }, [isScroll, locY, nextY, MinY, MaxY]);
   const startScroll = e => {
     setScroll(true);
     setStartY(e.touches[0].pageY);
-    console.log(startY);
   };
   const endScroll = e => {
     setScroll(false);
     setEndY(e.changedTouches[0].pageY);
-    console.log(startY);
   };
 
   return (
