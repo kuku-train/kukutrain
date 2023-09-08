@@ -9,7 +9,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 27',
       phone: '02-953-5592',
       img_main: require('../Assets/image/맛닭꼬/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -42,7 +42,7 @@ export const data = {
       addr: '서울 동대문구 제기로 11-1 1층',
       phone: '02-953-1092',
       img_main: require('../Assets/image/홍도야빈대떡/main.jpeg'),
-      time: null,
+      time: '19:00~22:00',
       alcohol: null,
       food: [],
       snack: [
@@ -71,7 +71,7 @@ export const data = {
       addr: '서울 동대문구 제기로6길 5 1층',
       phone: '02-923-1068',
       img_main: require('../Assets/image/충주집/main.jpeg'),
-      time: null,
+      time: '19:00~22:00',
       alcohol: null,
       food: [],
       snack: [
@@ -96,7 +96,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 48 2층',
       phone: '0507-1393-7777',
       img_main: require('../Assets/image/유자유/main.jpeg'),
-      time: '6:30~9:30',
+      time: '19:00~22:00',
       alcohol: ['막걸리'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -125,7 +125,7 @@ export const data = {
       addr: '서울 성북구 고려대로 92',
       phone: '02-927-1331',
       img_main: require('../Assets/image/삼통치킨/main.jpeg'),
-      time: '7:00~9:00',
+      time: '19:00~22:00',
       alcohol: ['맥주'],
       food: ['마른 안주'],
       snack: [
@@ -154,7 +154,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 49',
       phone: '02-816-9438',
       img_main: require('../Assets/image/산적/main.jpeg'),
-      time: '6:00~9:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -183,7 +183,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 45-4 1층',
       phone: '0507-1309-2810',
       img_main: require('../Assets/image/춘자1층/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -217,7 +217,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 50 1층',
       phone: '02-922-2654',
       img_main: require('../Assets/image/꼬꼬아찌/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -246,7 +246,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 14',
       phone: '02-929-1226',
       img_main: require('../Assets/image/역전할머니맥주/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '아이셔에 이슬', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -279,7 +279,7 @@ export const data = {
       addr: '서울 성북구 안암로 81-4',
       phone: '02-953-3451',
       img_main: require('../Assets/image/서서갈비/main.jpeg'),
-      time: '6:30~9:30',
+      time: '19:00~22:00',
       alcohol: null,
       food: [],
       snack: [
@@ -308,7 +308,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 49',
       phone: '02-922-4085',
       img_main: require('../Assets/image/88왕대포/main.jpeg'),
-      time: '6:30~9:30',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류', '전류'],
       snack: [
@@ -346,7 +346,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 14',
       phone: '0507-1369-0588',
       img_main: require('../Assets/image/막걸리집/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '막걸리'],
       food: ['마른 안주'],
       snack: [
@@ -375,7 +375,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 45-5 1층',
       phone: '010-9431-1452',
       img_main: require('../Assets/image/38포차/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -408,7 +408,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 30',
       phone: '02-3291-4848',
       img_main: require('../Assets/image/한잔의추억/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['막걸리'],
       food: ['마른 안주', '국물/탕류', '전류'],
       snack: [
@@ -446,7 +446,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 9',
       phone: '02-922-3222',
       img_main: require('../Assets/image/쿠마/main.jpeg'),
-      time: '6:45~9:45',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -484,7 +484,7 @@ export const data = {
       addr: '서울 성북구 안암로 85',
       phone: '02-925-9417',
       img_main: require('../Assets/image/안암꼬치/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -517,7 +517,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 34',
       phone: null,
       img_main: require('../Assets/image/박군포차/main.jpeg'),
-      time: '6:00~9:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '막걸리'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -555,7 +555,7 @@ export const data = {
       addr: '서울 성북구 고려대로24가길 6',
       phone: '02-924-5484',
       img_main: require('../Assets/image/오징어나라/main.jpeg'),
-      time: '7:00~9:30',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주', '막걸리'],
       food: ['마른 안주', '전류'],
       snack: [
@@ -601,7 +601,7 @@ export const data = {
       addr: '서울 성북구 안암로9가길 100 1층',
       phone: '02-922-1668 ',
       img_main: require('../Assets/image/영철버거/main.jpeg'),
-      time: '7:00~11:30',
+      time: '19:00~22:00',
       alcohol: ['병맥주', '소주'],
       food: ['마른 안주'],
       snack: [
@@ -630,7 +630,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 37',
       phone: '02-925-0420',
       img_main: require('../Assets/image/안암아줌마치킨/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -655,7 +655,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 32 1층',
       phone: 'null',
       img_main: require('../Assets/image/희야/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주', '막걸리'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -688,7 +688,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 55',
       phone: '02-922-1379',
       img_main: require('../Assets/image/황제곱창/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '막걸리'],
       food: ['마른 안주'],
       snack: [
@@ -717,7 +717,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 60',
       phone: '02-922-0077',
       img_main: require('../Assets/image/삼성통닭/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['맥주'],
       food: ['마른 안주'],
       snack: [
@@ -742,7 +742,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 28',
       phone: '02-463-2605',
       img_main: require('../Assets/image/술기로운맥주생활/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -775,7 +775,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 42-2 2층',
       phone: '0507-1350-4872',
       img_main: require('../Assets/image/지금보고싶다/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주', '막걸리'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -808,7 +808,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 14 대륜빌딩 2층 201호',
       phone: '02-928-0260',
       img_main: require('../Assets/image/두꺼비로맨스/main.jpeg'),
-      time: '7:00~10:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주', '막걸리'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -837,7 +837,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 7',
       phone: '0507-1354-1118',
       img_main: require('../Assets/image/고대인의먹거리집/main.jpeg'),
-      time: '00:00~24:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '막걸리'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -870,7 +870,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 39 1층',
       phone: '02-927-3586',
       img_main: require('../Assets/image/이가네/main.jpeg'),
-      time: '17:00~04:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -903,7 +903,7 @@ export const data = {
       addr: '서울 성북구 고려대로24가길 4-17',
       phone: '02-928-8543',
       img_main: require('../Assets/image/1973/main.jpeg'),
-      time: '17:00~04:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -932,7 +932,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 42-3 1층',
       phone: '0507-1386-9865',
       img_main: require('../Assets/image/묘한객잔/main.jpeg'),
-      time: '17:00~04:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: null,
@@ -952,7 +952,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 45 2층',
       phone: '02-6339-8869',
       img_main: require('../Assets/image/치폴레옹/main.jpeg'),
-      time: '10:30~24:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주'],
       snack: [
@@ -981,7 +981,7 @@ export const data = {
       addr: '서울 성북구 고려대로24가길 8 1층',
       phone: '서울 성북구 고려대로24가길 8 1층',
       img_main: require('../Assets/image/인생집/main.jpeg'),
-      time: '17:00~04:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -1014,7 +1014,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 60',
       phone: '02-6013-7739',
       img_main: require('../Assets/image/오거리술집/main.jpeg'),
-      time: '17:00~04:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: null,
@@ -1034,7 +1034,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 3-28',
       phone: '02-923-5484',
       img_main: require('../Assets/image/짚신/main.jpeg'),
-      time: '11:00~02:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: null,
@@ -1054,7 +1054,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 33 1층',
       phone: '02-3291-0077',
       img_main: require('../Assets/image/골목집/main.jpeg'),
-      time: '17:00~07:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
@@ -1087,7 +1087,7 @@ export const data = {
       addr: '서울 성북구 고려대로24길 24 1층',
       phone: '02-6402-0121',
       img_main: require('../Assets/image/인생설렁탕/main.jpeg'),
-      time: '11:00 ~ 22:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['국물/탕류'],
       snack: null,
@@ -1107,7 +1107,7 @@ export const data = {
       addr: '서울 성북구 고려대로26길 25 1층',
       phone: '02-928-0010',
       img_main: require('../Assets/image/56/main.jpeg'),
-      time: '17:00~05:00',
+      time: '19:00~22:00',
       alcohol: ['소주', '맥주'],
       food: ['마른 안주', '국물/탕류'],
       snack: [
