@@ -144,6 +144,7 @@ function MainPage() {
         </>
       )}
       {install && <InstallPrompt />}
+      {/*
       {betaInformation && (
         <InstallStyled>
           <InstallBoxStyledIOS>
@@ -168,7 +169,7 @@ function MainPage() {
             </div>
           </InstallBoxStyledIOS>
         </InstallStyled>
-      )}
+      )}*/}
       <MapContainer
         selected={selected}
         setSelected={setSelected}
