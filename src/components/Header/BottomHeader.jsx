@@ -35,7 +35,7 @@ export function BottomHeader({
 }) {
   const SCROLL__OFFSET__Y = 40;
   const MinY = 200;
-  const MaxY = HEIGHT - 300;
+  const MaxY = HEIGHT - 200;
 
   const [isScroll, setScroll] = useState(false);
   const [isToggle, setToggle] = useState(false);
