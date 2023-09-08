@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { getWidthPixel, getHeightPixel, HEIGHT, getPixelToNumber } from '../../utils/responsive';
 
@@ -44,6 +44,11 @@ export function BottomHeader({
   const [type, setType] = useState(-1);
   const [nextY, setNextY] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [startY, setStartY] = useState(0);
+  const [endY, setEndY] = useState(0);
+
+  //const isScroll = true;
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     let timeoutId;
@@ -60,54 +65,81 @@ export function BottomHeader({
   }, [isToggle]);
 
   useEffect(() => {
-    console.log(locY, getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)), MinY, MaxY);
-    if (isScroll) {
-      if (direction < locY) {
-        setNextY(MinY);
-      } else {
-        setNextY(MaxY);
-      }
+    console.log(locY);
+    if (startY > endY) {
+      setLocY(MinY);
     } else {
-      const id = setInterval(() => {
-        if (locY < nextY) {
-          setLocY(prevY => prevY + 100);
-        } else if (locY > nextY) {
-          setLocY(prevY => prevY - 100);
-        }
-      }, 1);
-      return () => clearInterval(id);
+      setLocY(MaxY);
     }
-  }, [isScroll]);
+  }, [endY]);
+
+  // useEffect(() => {
+  //   console.log(locY, getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)), MinY, MaxY);
+  //   if (isScroll) {
+  //     if (direction < locY) {
+  //       setNextY(MinY);
+  //     } else {
+  //       setNextY(MaxY);
+  //     }
+  //   } else {
+  //     // Clear the previous interval before creating a new one
+  //     if (intervalRef.current) {
+  //       clearInterval(intervalRef.current);
+  //     }
+
+  //     intervalRef.current = setInterval(() => {
+  //       if (locY < nextY) {
+  //         setLocY(prevY => prevY + 100);
+  //       } else if (locY > nextY) {
+  //         setLocY(prevY => prevY - 100);
+  //       }
+  //     }, 1);
+  //   }
+
+  // Cleanup: clear the interval when the component unmounts or when isScroll changes
+  //   return () => {
+  //     if (intervalRef.current) {
+  //       clearInterval(intervalRef.current);
+  //     }
+  //   };
+  // }, [isScroll, locY, nextY, MinY, MaxY]);
+  const startScroll = e => {
+    setScroll(true);
+    setStartY(e.touches[0].pageY);
+    console.log(startY);
+  };
+  const endScroll = e => {
+    setScroll(false);
+    setEndY(e.changedTouches[0].pageY);
+    console.log(startY);
+  };
 
   return (
     <ContainerStyled>
       {selected !== -1 ? (
-        <div
-          onTouchStart={e => {
-            setScroll(true);
-            setDirection(e.touches[0].pageY);
-          }}
-          onTouchEnd={e => {
-            setScroll(false);
-          }}
-          onTouchMove={e => {
-            if (isScroll) {
-              setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-            }
-          }}
-          onMouseDown={() => {
-            setScroll(true);
-          }}
-          onMouseUp={() => {
-            setScroll(false);
-          }}
-          onMouseMove={e => {
-            if (isScroll) {
-              setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-            }
-          }}
-        >
-          <BackHeader selected={selected} setSelected={setSelected} />
+        <div>
+          <div
+            onTouchStart={startScroll}
+            onTouchEnd={endScroll}
+            onTouchMove={e => {
+              if (isScroll) {
+                setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
+              }
+            }}
+            onMouseDown={() => {
+              setScroll(true);
+            }}
+            onMouseUp={() => {
+              setScroll(false);
+            }}
+            onMouseMove={e => {
+              if (isScroll) {
+                setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
+              }
+            }}
+          >
+            <BackHeader selected={selected} setSelected={setSelected} />
+          </div>
         </div>
       ) : selectedIdx === 1 ? (
         <div>
@@ -125,12 +157,8 @@ export function BottomHeader({
             </BottomSubOffContainer>
           )}
           <div
-            onTouchStart={e => {
-              setScroll(true);
-            }}
-            onTouchEnd={e => {
-              setScroll(false);
-            }}
+            onTouchStart={startScroll}
+            onTouchEnd={endScroll}
             onTouchMove={e => {
               if (isScroll) {
                 setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
@@ -186,12 +214,8 @@ export function BottomHeader({
         <div>
           <TrainSideIconStyled />
           <HeaderStyled
-            onTouchStart={e => {
-              setScroll(true);
-            }}
-            onTouchEnd={e => {
-              setScroll(false);
-            }}
+            onTouchStart={startScroll}
+            onTouchEnd={endScroll}
             onTouchMove={e => {
               if (isScroll) {
                 setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));

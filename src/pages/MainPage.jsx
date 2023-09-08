@@ -29,7 +29,7 @@ function MainPage() {
   const [selectedIdx, setIdx] = useState(1);
   const [banner, setBanner] = useState(true);
   const [install, setInstall] = useState(true);
-  const [betaInformation, setBetaInformation] = useState(true);
+  // const [betaInformation, setBetaInformation] = useState(true);
 
   const [isShown, setIsShown] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -76,7 +76,7 @@ function MainPage() {
               </div>
               <div className="img">
                 <div className="img-gradation" />
-                <img src={IOSdown} alt="IOSdown" width="100%" />
+                <img src={IOSdown} alt="IOSdown" width="100%" height="300px" />
               </div>
               <div className="text">
                 <div className="red">
@@ -192,20 +192,6 @@ function MainPage() {
         selectedIdx={selectedIdx}
         setIdx={setIdx}
       />
-      {/* <BottomContainer2
-        selected={selected}
-        setSelected={setSelected}
-        alcoholIdx={alcoholIdx}
-        setAlcoholIdx={setAlcoholIdx}
-        foodIdx={foodIdx}
-        setFoodIdx={setFoodIdx}
-        noiseIdx={noiseIdx}
-        setNoiseIdx={setNoiseIdx}
-        selectedIdx={selectedIdx}
-        setIdx={setIdx}
-      /> */}
-
-      {/* <BottomSheet /> */}
     </PageStyled>
   );
 }
@@ -387,7 +373,7 @@ const InstallBoxStyledIOS = styled.a`
 
   .img-gradation {
     width: ${getWidthPixel(340)};
-    height: ${getHeightPixel(354)};
+    height: 257px;
     position: absolute;
     background: linear-gradient(#2b2827, #2b282760);
   }
