@@ -34,8 +34,8 @@ export function BottomHeader({
   setNoiseIdx,
 }) {
   const SCROLL__OFFSET__Y = 40;
-  const MinY = 200;
-  const MaxY = HEIGHT - 200;
+  const MinY = 150;
+  const MaxY = HEIGHT - 100;
 
   const [isScroll, setScroll] = useState(false);
   const [isToggle, setToggle] = useState(false);
