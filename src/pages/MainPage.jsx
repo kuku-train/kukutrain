@@ -67,7 +67,7 @@ function MainPage() {
       return (
         <InstallStyled>
           <InstallBoxStyledIOS>
-            <div className="close" onClick={() => setInstall(false)}>
+            <div className="close" onClick={() => setInstall(false)} width={CLOSE_SIZE * 2} height={CLOSE_SIZE * 2}>
               <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
             </div>
             <div className="textBox">
@@ -102,7 +102,7 @@ function MainPage() {
     return (
       <InstallStyled>
         <InstallBoxStyled>
-          <div className="close" onClick={() => setInstall(false)}>
+          <div className="close" onClick={() => setInstall(false)} width={CLOSE_SIZE * 2} height={CLOSE_SIZE * 2}>
             <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
           </div>
           <div className="textBox">
@@ -137,7 +137,7 @@ function MainPage() {
             <a className="content" href="https://forms.gle/1CixQBs2PhZ9pytP6" target="_blank" rel="noreferrer">
               <div className="text">GDSC KU 2기 모집중</div>
             </a>
-            <div className="close" onClick={() => setBanner(false)}>
+            <div className="close" onClick={() => setBanner(false)} width={CLOSE_SIZE * 2} height={CLOSE_SIZE * 2}>
               <Close width={CLOSE_SIZE} height={CLOSE_SIZE} />
             </div>
           </BannerStyled>

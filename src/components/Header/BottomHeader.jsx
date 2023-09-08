@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { getWidthPixel, getHeightPixel, HEIGHT, getPixelToNumber } from '../../utils/responsive';
-
 import { ReactComponent as BottomHeaderElement } from '../../Assets/element/BottomTabElement.svg';
 import { palette } from '../../constants/palette';
 import Button from '../Button';
@@ -35,8 +34,8 @@ export function BottomHeader({
   setNoiseIdx,
 }) {
   const SCROLL__OFFSET__Y = 40;
-  const MinY = 100;
-  const MaxY = 500;
+  const MinY = 200;
+  const MaxY = HEIGHT - 300;
 
   const [isScroll, setScroll] = useState(false);
   const [isToggle, setToggle] = useState(false);
@@ -44,13 +43,14 @@ export function BottomHeader({
   const [type, setType] = useState(-1);
   const [startY, setStartY] = useState(0);
   const [endY, setEndY] = useState(0);
+  const [prevY, setPrevY] = useState(locY);
 
   useEffect(() => {
     let timeoutId;
     if (isToggle) {
-      timeoutId = setTimeout(() => setFlag(true), 1);
+      timeoutId = setTimeout(() => setFlag(true), 100);
     } else {
-      timeoutId = setTimeout(() => setFlag(false), 1);
+      timeoutId = setTimeout(() => setFlag(false), 100);
     }
     return () => {
       if (timeoutId !== undefined) {
@@ -61,84 +61,62 @@ export function BottomHeader({
 
   useEffect(() => {
     console.log(locY);
-    if (startY > endY) {
+    if (Math.abs(startY - endY) < 50) {
+      setLocY(prevY);
+    } else if (startY > endY) {
       setLocY(MinY);
     } else {
       setLocY(MaxY);
     }
   }, [endY]);
 
-  const startScroll = e => {
-    setScroll(true);
-    setStartY(e.touches[0].pageY);
-  };
-  const endScroll = e => {
-    setScroll(false);
-    setEndY(e.changedTouches[0].pageY);
-  };
-
   return (
     <ContainerStyled>
-      {selected !== -1 ? (
-        <div>
-          <div
-            onTouchStart={startScroll}
-            onTouchEnd={endScroll}
-            onTouchMove={e => {
-              if (isScroll) {
-                setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
-            onMouseDown={() => {
-              setScroll(true);
-            }}
-            onMouseUp={() => {
-              setScroll(false);
-            }}
-            onMouseMove={e => {
-              if (isScroll) {
-                setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
-          >
-            <BackHeader selected={selected} setSelected={setSelected} />
-          </div>
-        </div>
-      ) : selectedIdx === 1 ? (
-        <div>
-          {flag ? (
-            <BottomSubContainer
-              type={type}
-              setType={setType}
-              idxList={type === 0 ? alcoholIdx : type === 1 ? foodIdx : noiseIdx}
-              setIdx={type === 0 ? setAlcoholIdx : type === 1 ? setFoodIdx : setNoiseIdx}
-              isToggle={isToggle}
-            />
-          ) : (
-            <BottomSubOffContainer isVisible={isToggle}>
-              <TrainIconStyled />
-            </BottomSubOffContainer>
-          )}
-          <div
-            onTouchStart={startScroll}
-            onTouchEnd={endScroll}
-            onTouchMove={e => {
-              if (isScroll) {
-                setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
-            onMouseDown={() => {
-              setScroll(true);
-            }}
-            onMouseUp={() => {
-              setScroll(false);
-            }}
-            onMouseMove={e => {
-              if (isScroll) {
-                setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
-          >
+      <div
+        onTouchStart={e => {
+          setScroll(true);
+          setStartY(e.touches[0].pageY);
+          setPrevY(locY);
+        }}
+        onTouchEnd={e => {
+          setScroll(false);
+          setEndY(e.changedTouches[0].pageY);
+        }}
+        onTouchMove={e => {
+          if (isScroll) {
+            setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
+          }
+        }}
+        onMouseDown={() => {
+          setScroll(true);
+        }}
+        onMouseUp={() => {
+          setScroll(false);
+        }}
+        onMouseMove={e => {
+          if (isScroll) {
+            setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
+          }
+        }}
+      >
+        {selected !== -1 ? (
+          <BackHeader selected={selected} setSelected={setSelected} />
+        ) : selectedIdx === 1 ? (
+          <div>
+            {flag ? (
+              <BottomSubContainer
+                type={type}
+                setType={setType}
+                idxList={type === 0 ? alcoholIdx : type === 1 ? foodIdx : noiseIdx}
+                setIdx={type === 0 ? setAlcoholIdx : type === 1 ? setFoodIdx : setNoiseIdx}
+                isToggle={isToggle}
+              />
+            ) : (
+              <BottomSubOffContainer isVisible={isToggle}>
+                <TrainIconStyled />
+              </BottomSubOffContainer>
+            )}
+
             <HeaderBox>
               <BottomHeaderElement />
             </HeaderBox>
@@ -172,46 +150,27 @@ export function BottomHeader({
               )}
             </CenterButtonStyled>
           </div>
-        </div>
-      ) : (
-        <div>
-          <TrainSideIconStyled />
-          <HeaderStyled
-            onTouchStart={startScroll}
-            onTouchEnd={endScroll}
-            onTouchMove={e => {
-              if (isScroll) {
-                setLocY(e.touches[0].pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
-            onMouseDown={() => {
-              setScroll(true);
-            }}
-            onMouseUp={() => {
-              setScroll(false);
-            }}
-            onMouseMove={e => {
-              if (isScroll) {
-                setLocY(e.pageY - getPixelToNumber(getHeightPixel(SCROLL__OFFSET__Y)));
-              }
-            }}
-          >
-            <Blank width={getWidthPixel(30)} />
-            <Button text={'화장실'} idx={0} isSelected={selectedIdx === 0} onClick={() => setIdx(0)}>
-              {selectedIdx === 0 ? <ToiletCrimsonIconStyled /> : <ToiletGrayIconStyled />}
-            </Button>
-            <Blank width={getWidthPixel(22)} />
-            <Button text={'뒤풀이'} idx={1} isSelected={selectedIdx === 1} onClick={() => setIdx(1)}>
-              <RestaurantIconStyled />
-            </Button>
-            <Blank width={getWidthPixel(22)} />
-            <Button text={'응원단'} idx={2} isSelected={selectedIdx === 2} onClick={() => setIdx(2)}>
-              {selectedIdx === 2 ? <CheerCrimsonIconStyled /> : <CheerGrayIconStyled />}
-            </Button>
-            <Blank width={getWidthPixel(30)} />
-          </HeaderStyled>
-        </div>
-      )}
+        ) : (
+          <div>
+            <TrainSideIconStyled />
+            <HeaderStyled>
+              <Blank width={getWidthPixel(30)} />
+              <Button text={'화장실'} idx={0} isSelected={selectedIdx === 0} onClick={() => setIdx(0)}>
+                {selectedIdx === 0 ? <ToiletCrimsonIconStyled /> : <ToiletGrayIconStyled />}
+              </Button>
+              <Blank width={getWidthPixel(22)} />
+              <Button text={'뒤풀이'} idx={1} isSelected={selectedIdx === 1} onClick={() => setIdx(1)}>
+                <RestaurantIconStyled />
+              </Button>
+              <Blank width={getWidthPixel(22)} />
+              <Button text={'응원단'} idx={2} isSelected={selectedIdx === 2} onClick={() => setIdx(2)}>
+                {selectedIdx === 2 ? <CheerCrimsonIconStyled /> : <CheerGrayIconStyled />}
+              </Button>
+              <Blank width={getWidthPixel(30)} />
+            </HeaderStyled>
+          </div>
+        )}{' '}
+      </div>
     </ContainerStyled>
   );
 }

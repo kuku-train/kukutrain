@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "react-spring-bottom-sheet-updated": "^3.6.0",
     "react-stately": "^3.25.0",
+    "react-transition-group": "^4.4.5",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
