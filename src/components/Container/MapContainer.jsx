@@ -253,7 +253,7 @@ const CurrentLocationButton = styled.button`
   border-radius: 50%;
   padding: 0;
   width: ${getWidthPixel(50)};
-  height: ${getHeightPixel(50)};
+  height: ${getWidthPixel(50)};
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
